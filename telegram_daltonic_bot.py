@@ -107,7 +107,7 @@ def process_start_daltonize(message):
         try:  
            chat_id = message.chat.id
            user_dict[chat_id] = message
-           markup = types.ReplyKeyboardMarkup(selective=False)
+           markup = types.ReplyKeyboardMarkup()
            markup.resize_keyboard = True
            markup.row_width = 2
            markup.add('Yes', 'No')
@@ -120,12 +120,15 @@ def process_option_choose(message):
     try:
         option = message.text
         if (option == u'Yes'):
-            markup = types.ReplyKeyboardMarkup(selective=False)
+            markup = types.ReplyKeyboardMarkup()
             markup.resize_keyboard = True
             markup.row_width = 1
             markup.add('Deuteranopia', 'Protanopia', 'Tritanopia')
             msg = bot.reply_to(message, "Choose daltonic option", reply_markup=markup)
             bot.register_next_step_handler(msg, process_daltonize_now)
+        else:
+            cid = message.chat.id
+            send_message(cid, "Daltonize image cancelled!!")
     except Exception as e:
         print(e)
 
@@ -135,6 +138,9 @@ def process_daltonize_now(msg):
     if (message.content_type == 'photo'):
         try:
            daltonic_option = msg.text.lower()
+           if (daltonic_option != 'deuteranopia' and daltonic_option != 'protanopia' and daltonic_option != 'tritanopia'):
+              send_message(cid, "Incorrect daltonic selection")
+              return
            file_id = message.photo[1].file_id
            file_path = bot.get_file(file_id).file_path
            if (not(file_path.find("jpg")) or not(file_path.find("png"))):
