@@ -34,23 +34,25 @@ SAVE_PATH = "/media/HDD2/telegram_bot/images"
 
 bot = telebot.TeleBot(TOKEN)
 
+hideBoard = types.ReplyKeyboardHide()
+
 #logger = telebot.logger
 #telebot.logger.setLevel(logging.DEBUG) # Outputs debug messages to console.
 
 user_dict = {} 
 
 def send_message(cid, text):
-    bot.send_message(cid, text)
+    bot.send_message(cid, text, reply_markup=hideBoard)
 
 def send_document(cid, document):
-    bot.send_document(cid, document)
+    bot.send_document(cid, document, reply_markup=hideBoard)
 
 def send_photo(cid, photo_path):
    photo = open(photo_path, 'rb') 
-   bot.send_photo(cid, photo)
+   bot.send_photo(cid, photo, reply_markup=hideBoard)
 
 def reply_to(message, text):
-    bot.reply_to(message, text)
+    bot.reply_to(message, text, reply_markup=hideBoard)
 
 def answer_inline_query(inline_query_id, array_types):
     bot.answer_inline_query(inline_query_id, array_types)
@@ -105,8 +107,9 @@ def process_start_daltonize(message):
         try:  
            chat_id = message.chat.id
            user_dict[chat_id] = message
-           markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
+           markup = types.ReplyKeyboardMarkup(selective=False)
            markup.resize_keyboard = True
+           markup.row_width = 2
            markup.add('Yes', 'No')
            msg = bot.reply_to(message, "Daltonic bot has detected a new image. Do you want to daltonize it?", reply_markup=markup)
            bot.register_next_step_handler(msg, process_option_choose)
@@ -117,8 +120,9 @@ def process_option_choose(message):
     try:
         option = message.text
         if (option == u'Yes'):
-            markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
+            markup = types.ReplyKeyboardMarkup(selective=False)
             markup.resize_keyboard = True
+            markup.row_width = 1
             markup.add('Deuteranopia', 'Protanopia', 'Tritanopia')
             msg = bot.reply_to(message, "Choose daltonic option", reply_markup=markup)
             bot.register_next_step_handler(msg, process_daltonize_now)
@@ -152,5 +156,5 @@ def process_daltonize_now(msg):
     else:
        send_message(cid, "Please send an image to adjust for colour blind people.")
   
-#bot.polling(none_stop=True, interval=0)
-bot.polling(none_stop=False, interval=0)
+bot.polling(none_stop=True, interval=0)
+#bot.polling(none_stop=False, interval=0)
