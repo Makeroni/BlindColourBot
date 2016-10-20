@@ -55,7 +55,7 @@ class SQLManager:
                for row in data:
                   user_id = row[0] 
                   daltonic = row[1]
-                  result[str(user_id)] = daltonic
+                  result[str(user_id)] = str(daltonic)
                   break              
         except:
             print "Error: the database connection closing on fetch..."
