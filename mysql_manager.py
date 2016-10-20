@@ -27,7 +27,7 @@ class SQLManager:
             print "Error: closing databe connection..."
             close_connection()
 
-    def insert_language(self, daltonic_type, user_id):
+    def insert_daltonic_data(self, daltonic_type, user_id):
         status = False
         self.new_connection()
         try:
@@ -43,7 +43,7 @@ class SQLManager:
         self.close_connection()
         return status
 
-    def load_language(self, user_id):
+    def load_daltonic_data(self, user_id):
         self.new_connection()
         result = {}
         try:
