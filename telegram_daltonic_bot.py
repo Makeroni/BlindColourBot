@@ -6,6 +6,7 @@
 # Install Matplotlib: sudo apt-get install python-matplotlib
 # Install scipy: sudo apt-get install python-scipy
 # Install numpy >= 1.9.0: pip install numpy
+# Instal MySQL: sudo apt-get install mysql-server python-mysqldb
 
 # Create two folders inside SAVE_PATH:
 # mkdir SAVE_PATH/incoming_images
@@ -105,6 +106,8 @@ def echo_all(message):
 def process_start_daltonize(message):
     if (message.content_type == 'photo'):
         try:  
+#           print message.chat.id
+#           print message.from_user.id
            chat_id = message.chat.id
            user_dict[chat_id] = message
            markup = types.ReplyKeyboardMarkup()

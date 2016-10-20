@@ -7,3 +7,5 @@ sudo apt-get install python-matplotlib
 sudo apt-get install python-scipy
 
 pip install numpy
+
+sudo apt-get install mysql-server python-mysqldb
