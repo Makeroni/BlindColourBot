@@ -200,18 +200,49 @@ def process_option_choose(message):
     try:
         option = message.text
         if (option == u'Yes'):
-# check condiguration
-            markup = types.ReplyKeyboardMarkup()
-            markup.resize_keyboard = True
-            markup.row_width = 1
-            markup.add('Deuteranopia', 'Protanopia', 'Tritanopia')
-            msg = bot.reply_to(message, "Choose daltonic option", reply_markup=markup)
-            bot.register_next_step_handler(msg, process_daltonize_now)
+            # check condiguration
+            user_id = str(message.from_user.id)
+            result = mmanager.load_daltonic_data(user_id)
+            if not result:
+                 markup = types.ReplyKeyboardMarkup()
+                 markup.resize_keyboard = True
+                 markup.row_width = 1
+                 markup.add('Deuteranopia', 'Protanopia', 'Tritanopia')
+                 msg = bot.reply_to(message, "Choose daltonic option", reply_markup=markup)
+                 bot.register_next_step_handler(msg, process_daltonize_now)
+            else:
+                 cid = message.chat.id
+                 option = str(result[user_id])
+                 send_message(cid, "Adjusting image with your configuration: " + option.capitalize())
+                 message_item = user_dict[message.chat.id]
+                 process_image_item(message_item, option.lower())
         else:
             cid = message.chat.id
             send_message(cid, "Daltonize image cancelled!!")
     except Exception as e:
         print(e)
+
+def process_image_item(message, daltonic_option):
+    cid = message.chat.id
+    if (daltonic_option != 'deuteranopia' and daltonic_option != 'protanopia' and daltonic_option != 'tritanopia'):
+          send_message(cid, "Incorrect daltonic selection")
+          return
+    file_id = message.photo[1].file_id
+    file_path = bot.get_file(file_id).file_path
+    if (not(file_path.find("jpg")) or not(file_path.find("png"))):
+        send_message(cid, "Please send png or jpg files")
+    else:
+        send_message(cid, "Processing image...")
+        file = download_image(file_id)
+        input_image_path = save_file(file)
+        random_string = system_call("/usr/bin/head /dev/urandom | tr -dc A-Za-z0-9 | /usr/bin/head -c 5 | xargs echo").lower()
+        send_message(cid, "Adjusting image....")
+        output_image_path = SAVE_PATH + '/outcoming_images/new_file_' + current_time() + "_" + random_string + '.png'
+        touch(output_image_path)
+        adjust_image(input_image_path, output_image_path, daltonic_option)
+        send_message(cid, "Sending new image....")
+        send_photo(cid, output_image_path)
+        send_message(cid, "New image sended!")
 
 def process_daltonize_now(msg):
     message = user_dict[msg.chat.id]
@@ -219,25 +250,7 @@ def process_daltonize_now(msg):
     if (message.content_type == 'photo'):
         try:
            daltonic_option = msg.text.lower()
-           if (daltonic_option != 'deuteranopia' and daltonic_option != 'protanopia' and daltonic_option != 'tritanopia'):
-              send_message(cid, "Incorrect daltonic selection")
-              return
-           file_id = message.photo[1].file_id
-           file_path = bot.get_file(file_id).file_path
-           if (not(file_path.find("jpg")) or not(file_path.find("png"))):
-              send_message(cid, "Please send png or jpg files")
-           else:
-              send_message(cid, "Processing image...")
-              file = download_image(file_id)
-              input_image_path = save_file(file)
-              random_string = system_call("/usr/bin/head /dev/urandom | tr -dc A-Za-z0-9 | /usr/bin/head -c 5 | xargs echo").lower()
-              send_message(cid, "Adjusting image....")
-              output_image_path = SAVE_PATH + '/outcoming_images/new_file_' + current_time() + "_" + random_string + '.png'
-              touch(output_image_path)
-              adjust_image(input_image_path, output_image_path, daltonic_option)
-              send_message(cid, "Sending new image....")
-              send_photo(cid, output_image_path)
-              send_message(cid, "New image sended!")
+           process_image_item(message, daltonic_option)
         except ValueError:
             send_message(cid, "Unexpected error. Please try again.")
     else:
