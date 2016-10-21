@@ -101,7 +101,7 @@ def adjust_image(image_in, image_out, blindness_type):
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     intro_message = "This is a daltonic bot, it adjusts image color palette for color blindness\n"
-    intro_message += "Send an image to adjust colour for blind colour people. Send only jpg or png files\n"
+    intro_message += "Send an image to adjust colour for blind colour people. Send only jpg or png files\n\n"
     intro_message += "Set your configuration with /setmydaltonism and follow the assistant\n\n"
     intro_message += "Delete your configuration with /resetmydaltonism"
     reply_to(message, intro_message)
