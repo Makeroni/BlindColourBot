@@ -63,5 +63,19 @@ class SQLManager:
         self.close_connection()
         return result
 
+    def delete_user(self, user_id):
+        self.new_connection()
+        status = False
+        try:
+            statement = "DELETE FROM users_bot WHERE user_id = '" + user_id + "'" 
+            cursor.execute(statement)
+            db.commit()
+            status =  True
+        except:
+            print "Error: the database connection closing on fetch..."
+            status = False
+        self.close_connection()
+        return status
+
     def close_connection(self):
         db.close()
