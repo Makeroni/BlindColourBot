@@ -110,10 +110,12 @@ def send_welcome(message):
 def query_text(inline_query):
     try:
        commands = []
-       command1 = types.InlineQueryResultArticle('1', 'Configure my dalstonism', types.InputTextMessageContent('/setmydaltonism'))
+       command1 = types.InlineQueryResultArticle('1', 'Help', types.InputTextMessageContent('/help'))
        commands.append(command1)
-       command2 = types.InlineQueryResultArticle('2', 'Delete my configuration', types.InputTextMessageContent('/resetmydaltonism'))
+       command2 = types.InlineQueryResultArticle('2', 'Configure my dalstonism', types.InputTextMessageContent('/setmydaltonism'))
        commands.append(command2)
+       command3 = types.InlineQueryResultArticle('3', 'Delete my configuration', types.InputTextMessageContent('/resetmydaltonism'))
+       commands.append(command3)
        answer_inline_query(inline_query.id, commands)
     except Exception as e:
         print("Exception : " + e)
