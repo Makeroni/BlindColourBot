@@ -15,7 +15,7 @@ class SQLManager:
     db_password = ""
 
     def __init__(self):
-        print "object created"
+        print "MySQL object created"
 
     def new_connection(self):
         try:
@@ -36,7 +36,7 @@ class SQLManager:
             query += "ON DUPLICATE KEY UPDATE date = CURRENT_DATE(), time = NOW(), daltonic_type = '" + daltonic_type + "'" 
             cursor.execute(query)
             db.commit()
-            print "Data committed" 
+#            print "Data committed" 
             status =  True
         except:
             print "Error: the database is being rolled back"
@@ -70,7 +70,7 @@ class SQLManager:
             statement = "DELETE FROM users_bot WHERE user_id = '" + user_id + "'" 
             cursor.execute(statement)
             db.commit()
-            status =  True
+            status = True
         except:
             print "Error: the database connection closing on fetch..."
             status = False

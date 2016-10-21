@@ -14,6 +14,7 @@
 
 # /setprivacy to false on @BotFather to let this bot read all messages from group or conversation
 
+from mysql_manager import SQLManager
 import telebot
 from datetime import datetime
 from telebot import types
@@ -34,6 +35,8 @@ TOKEN = "285289285:AAGyLiGG3NNBVWp28xPwtv0EhOT3WMKD95Q"
 SAVE_PATH = "/media/HDD2/telegram_bot/images"
 
 bot = telebot.TeleBot(TOKEN)
+
+mmanager = SQLManager()
 
 hideBoard = types.ReplyKeyboardHide()
 
@@ -97,7 +100,83 @@ def adjust_image(image_in, image_out, blindness_type):
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    reply_to(message, "This is a daltonic bot, it adjusts image color palette for color blindness.\nSend an image to adjust colour for blind colour people. Send only jpg or png files.")
+    intro_message = "This is a daltonic bot, it adjusts image color palette for color blindness\n"
+    intro_message += "Send an image to adjust colour for blind colour people. Send only jpg or png files\n"
+    intro_message += "Set your configuration with /setmydaltonism and follow the assistant\n\n"
+    intro_message += "Delete your configuration with /resetmydaltonism"
+    reply_to(message, intro_message)
+
+@bot.inline_handler(lambda query: query.query == '')
+def query_text(inline_query):
+    try:
+       commands = []
+       command1 = types.InlineQueryResultArticle('1', 'Configure my dalstonism', types.InputTextMessageContent('/setmydaltonism'))
+       commands.append(command1)
+       command2 = types.InlineQueryResultArticle('2', 'Delete my configuration', types.InputTextMessageContent('/resetmydaltonism'))
+       commands.append(command2)
+       answer_inline_query(inline_query.id, commands)
+    except Exception as e:
+        print("Exception : " + e)
+
+@bot.message_handler(commands=['setmydaltonism'])
+def command_set_my_daltonism(message):
+    cid = message.chat.id
+    markup = types.ReplyKeyboardMarkup()
+    markup.resize_keyboard = True
+    markup.row_width = 1
+    markup.add('Deuteranopia', 'Protanopia', 'Tritanopia')
+    msg = bot.reply_to(message, "Choose daltonic option", reply_markup=markup)
+    bot.register_next_step_handler(msg, save_daltonism_option)
+    
+def save_daltonism_option(message):
+    option = message.text
+    if (len(option) > 0):
+       cid = message.chat.id
+       if (option != 'Deuteranopia' and option != 'Protanopia' and option != 'Tritanopia'):
+          send_message(cid, "Invalid option.\nType /setmydaltonism to set your daltonism configuration")
+          return 
+       user_id = str(message.from_user.id)
+       name = str(message.from_user.first_name)
+       if name ==  None:
+          name = ""
+       else:
+          name = name.replace("u'", "")
+       lastname = message.from_user.last_name
+       if lastname == None:
+          lastname = ""
+       else:
+          lastname = lastname.replace("u'", "")
+       inserted = mmanager.insert_daltonic_data(option.lower(), user_id.lower(), name.lower(), lastname.lower())
+       if inserted == True:
+          send_message(cid, "Configuration saved!!\nYour option is: " + option)
+       else:
+          send_message(cid, "Cannot save your configuration.\nPlease try again")
+    else:
+       send_message(cid, "Invalid option.\nType /setmydaltonism to set your daltonism configuration")
+
+@bot.message_handler(commands=['resetmydaltonism'])
+def command_reset_my_daltonism(message):
+    cid = message.chat.id
+    markup = types.ReplyKeyboardMarkup()
+    markup.resize_keyboard = True
+    markup.row_width = 2
+    markup.add('Yes', 'No')
+    msg = bot.reply_to(message, "Do you want to delete your daltonism configuration?", reply_markup=markup)
+    bot.register_next_step_handler(msg, delete_daltonism_option)
+
+def delete_daltonism_option(message):
+    try:
+        option = message.text
+        if (option == u'Yes'):
+           cid = message.chat.id
+           user_id = str(message.from_user.id)
+           deleted = mmanager.delete_user(user_id)
+           if deleted == True:
+             send_message(cid, "Configuration deleted")
+           else:
+             send_message(cid, "Cannot delete your configuration.\nPlease try again")
+    except Exception as e:
+        print(e)
 
 @bot.message_handler(func=lambda message: True, content_types=['photo'])
 def echo_all(message):
@@ -106,8 +185,6 @@ def echo_all(message):
 def process_start_daltonize(message):
     if (message.content_type == 'photo'):
         try:  
-#           print message.chat.id
-#           print message.from_user.id
            chat_id = message.chat.id
            user_dict[chat_id] = message
            markup = types.ReplyKeyboardMarkup()
@@ -123,6 +200,7 @@ def process_option_choose(message):
     try:
         option = message.text
         if (option == u'Yes'):
+# check condiguration
             markup = types.ReplyKeyboardMarkup()
             markup.resize_keyboard = True
             markup.row_width = 1
