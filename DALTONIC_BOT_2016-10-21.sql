@@ -7,7 +7,7 @@
 #
 # Host: raspilocal2 (MySQL 5.5.52-0+deb7u1)
 # Database: DALTONIC_BOT
-# Generation Time: 2016-10-20 20:53:29 +0000
+# Generation Time: 2016-10-21 13:35:38 +0000
 # ************************************************************
 
 
@@ -23,7 +23,7 @@
 # Dump of table users_bot
 # ------------------------------------------------------------
 
-# CREATE DATABASE DALTONIC_BOT
+# CREATE DATABASE IF NOT EXISTS DALTONIC_BOT;
 
 DROP TABLE IF EXISTS `users_bot`;
 
@@ -33,10 +33,21 @@ CREATE TABLE `users_bot` (
   `date` date DEFAULT NULL,
   `time` timestamp NULL DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) DEFAULT NULL,
+  `surname` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
+LOCK TABLES `users_bot` WRITE;
+/*!40000 ALTER TABLE `users_bot` DISABLE KEYS */;
+
+INSERT INTO `users_bot` (`user_id`, `daltonic_type`, `date`, `time`, `id`, `name`, `surname`)
+VALUES
+	('222','protanopia','2016-10-21','2016-10-21 15:34:50',1,NULL,NULL);
+
+/*!40000 ALTER TABLE `users_bot` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
@@ -46,4 +57,3 @@ CREATE TABLE `users_bot` (
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-

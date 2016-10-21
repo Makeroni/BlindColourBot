@@ -27,11 +27,12 @@ class SQLManager:
             print "Error: closing databe connection..."
             close_connection()
 
-    def insert_daltonic_data(self, daltonic_type, user_id):
+    def insert_daltonic_data(self, daltonic_type, user_id, name, surname):
         status = False
         self.new_connection()
         try:
-            query = "INSERT INTO users_bot (date, time, daltonic_type, user_id) values(CURRENT_DATE(), NOW(), '" + daltonic_type + "', '" + user_id + "') "
+            query = "INSERT INTO users_bot (date, time, daltonic_type, user_id, name, surname) " 
+            query += "values(CURRENT_DATE(), NOW(), '" + daltonic_type + "', '" + user_id + "', '" + name  +"', '" + surname + "') "
             query += "ON DUPLICATE KEY UPDATE date = CURRENT_DATE(), time = NOW(), daltonic_type = '" + daltonic_type + "'" 
             cursor.execute(query)
             db.commit()
