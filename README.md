@@ -30,7 +30,7 @@ sudo apt-get install python-matplotlib
 sudo apt-get install python-scipy
 ```
 
-### Install Numpy:
+### Install Numpy >= 1.9.0:
 
 ```
 pip install numpy
