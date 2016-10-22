@@ -48,6 +48,8 @@ user_dict = {}
 def check_bot_status(cid):
     status = mmanager.check_active_bot(str(cid))
     print ("Bot enabled" if status == True else "Bot disabled")
+    if status == False:
+       send_message(cid, "Current status for DaltonicBot is stopped.\nEnable this bot with /start command")
     return status
 
 def send_message(cid, text):
