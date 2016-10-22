@@ -7,7 +7,7 @@
 #
 # Host: raspilocal2 (MySQL 5.5.52-0+deb7u1)
 # Database: DALTONIC_BOT
-# Generation Time: 2016-10-22 11:20:29 +0000
+# Generation Time: 2016-10-22 12:15:00 +0000
 # ************************************************************
 
 
@@ -28,19 +28,19 @@
 DROP TABLE IF EXISTS `active_bot`;
 
 CREATE TABLE `active_bot` (
-  `user_id` varchar(150) NOT NULL DEFAULT '',
+  `chat_id` varchar(150) NOT NULL DEFAULT '',
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `date` date DEFAULT NULL,
   `time` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
+  PRIMARY KEY (`chat_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `active_bot` WRITE;
 /*!40000 ALTER TABLE `active_bot` DISABLE KEYS */;
 
-INSERT INTO `active_bot` (`user_id`, `enabled`, `date`, `time`)
+INSERT INTO `active_bot` (`chat_id`, `enabled`, `date`, `time`)
 VALUES
-	('5600371',1,'2016-10-22','2016-10-22 13:01:12');
+	('6619419',0,'2016-10-22','2016-10-22 14:10:37');
 
 /*!40000 ALTER TABLE `active_bot` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -66,8 +66,7 @@ LOCK TABLES `users_bot` WRITE;
 
 INSERT INTO `users_bot` (`user_id`, `daltonic_type`, `date`, `time`, `name`, `surname`)
 VALUES
-	('5600371','protanopia','2016-10-21','2016-10-21 21:33:54','fergus','reig'),
-	('6619419','protanopia','2016-10-22','2016-10-22 13:09:46','sergio','');
+	('5600371','protanopia','2016-10-21','2016-10-21 21:33:54','fergus','reig');
 
 /*!40000 ALTER TABLE `users_bot` ENABLE KEYS */;
 UNLOCK TABLES;

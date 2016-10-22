@@ -63,11 +63,11 @@ class SQLManager:
         self.close_connection()
         return result
 
-    def check_active_bot(self, user_id):
+    def check_active_bot(self, chat_id):
         self.new_connection()
         enabled = 0
         try:
-            query = "SELECT enabled FROM active_bot WHERE user_id = '" + user_id + "' limit 1"
+            query = "SELECT enabled FROM active_bot WHERE chat_id = '" + chat_id + "' limit 1"
             cursor.execute(query)
             data = cursor.fetchall()
             rows = len(data)
@@ -82,11 +82,11 @@ class SQLManager:
            return True
         return False
 
-    def check_user_exists_status_bot(self, user_id):
+    def check_chat_exists_status_bot(self, chat_id):
         self.new_connection()
         exist = False
         try:
-            query = "SELECT user_id FROM active_bot WHERE user_id = '" + user_id + "' limit 1"
+            query = "SELECT chat_id FROM active_bot WHERE chat_id = '" + chat_id + "' limit 1"
             cursor.execute(query)
             data = cursor.fetchall()
             rows = len(data)
@@ -97,15 +97,15 @@ class SQLManager:
         self.close_connection()
         return exist
 
-    def update_status_bot(self, user_id, status):
+    def update_status_bot(self, chat_id, status):
         self.new_connection()
         operation = False
         try:
             enabled = 0
             if status == True:
                enabled = 1
-            query = "INSERT INTO active_bot (date, time, user_id, enabled) "
-            query += "values(CURRENT_DATE(), NOW(), '" + user_id + "', " + str(enabled) + ") "
+            query = "INSERT INTO active_bot (date, time, chat_id, enabled) "
+            query += "values(CURRENT_DATE(), NOW(), '" + chat_id + "', " + str(enabled) + ") "
             query += "ON DUPLICATE KEY UPDATE date = CURRENT_DATE(), time = NOW(), enabled = " + str(enabled)
             cursor.execute(query)
             db.commit()

@@ -45,6 +45,11 @@ hideBoard = types.ReplyKeyboardHide()
 
 user_dict = {} 
 
+def check_bot_status(cid):
+    status = mmanager.check_active_bot(str(cid))
+    print ("Bot enabled" if status == True else "Bot disabled")
+    return status
+
 def send_message(cid, text):
     bot.send_message(cid, text, reply_markup=hideBoard)
 
@@ -105,24 +110,50 @@ def send_welcome(message):
     intro_message += "Set your configuration with /setmydaltonism and follow the assistant\n\n"
     intro_message += "Delete your configuration with /resetmydaltonism"
     reply_to(message, intro_message)
+    if (message.text == '/start'):
+       cid = message.chat.id
+       new_status = True
+       mmanager.update_status_bot(str(cid), new_status)
+#       update_status = mmanager.update_status_bot(str(cid), new_status)
+#       if update_status == True:
+#          send_message(cid, "DaltonicBot updated status: " + ("True" if new_status == True else "False"))
+#       else:
+#          send_message(cid, "DaltonicBot not updated status.\nPlease try again")      
 
 @bot.inline_handler(lambda query: query.query == '')
 def query_text(inline_query):
     try:
        commands = []
-       command1 = types.InlineQueryResultArticle('1', 'Help', types.InputTextMessageContent('/help'))
+       command1 = types.InlineQueryResultArticle('1', 'Start DaltonicBot', types.InputTextMessageContent('/start'))
        commands.append(command1)
-       command2 = types.InlineQueryResultArticle('2', 'Configure my dalstonism', types.InputTextMessageContent('/setmydaltonism'))
+       command2 = types.InlineQueryResultArticle('2', 'Stop DaltonicBot', types.InputTextMessageContent('/stop'))
        commands.append(command2)
-       command3 = types.InlineQueryResultArticle('3', 'Delete my configuration', types.InputTextMessageContent('/resetmydaltonism'))
+       command3 = types.InlineQueryResultArticle('3', 'Help DaltonicBot', types.InputTextMessageContent('/help'))
        commands.append(command3)
+       command4 = types.InlineQueryResultArticle('4', 'Configure my dalstonism', types.InputTextMessageContent('/setmydaltonism'))
+       commands.append(command4)
+       command5 = types.InlineQueryResultArticle('5', 'Delete my configuration', types.InputTextMessageContent('/resetmydaltonism'))
+       commands.append(command5)
        answer_inline_query(inline_query.id, commands)
     except Exception as e:
         print("Exception : " + e)
 
+@bot.message_handler(commands=['stop'])
+def command_set_my_daltonism(message):
+    cid = message.chat.id
+    new_status = False
+    update_status = mmanager.update_status_bot(str(cid), new_status)
+    if update_status == True:
+#       send_message(cid, "DaltonicBot updated status: " + ("True" if new_status == True else "False"))
+       send_message(cid, "DaltonicBot stopped")
+    else:
+       send_message(cid, "DaltonicBot not updated status.\nPlease try again")   
+
 @bot.message_handler(commands=['setmydaltonism'])
 def command_set_my_daltonism(message):
     cid = message.chat.id
+    if check_bot_status(cid) == False:
+       return
     markup = types.ReplyKeyboardMarkup()
     markup.resize_keyboard = True
     markup.row_width = 1
@@ -159,6 +190,8 @@ def save_daltonism_option(message):
 @bot.message_handler(commands=['resetmydaltonism'])
 def command_reset_my_daltonism(message):
     cid = message.chat.id
+    if check_bot_status(cid) == False:
+       return 
     markup = types.ReplyKeyboardMarkup()
     markup.resize_keyboard = True
     markup.row_width = 2
@@ -182,12 +215,15 @@ def delete_daltonism_option(message):
 
 @bot.message_handler(func=lambda message: True, content_types=['photo'])
 def echo_all(message):
+    cid = message.chat.id
+    if check_bot_status(cid) == False:
+       return
     process_start_daltonize(message)
 
 def process_start_daltonize(message):
     if (message.content_type == 'photo'):
-        try:  
-           chat_id = message.chat.id
+        try:
+           chat_id = message.chat.id  
            user_dict[chat_id] = message
            markup = types.ReplyKeyboardMarkup()
            markup.resize_keyboard = True
