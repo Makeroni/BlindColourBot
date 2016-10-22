@@ -58,7 +58,7 @@ mysql -u <username> -p DALTONIC_BOT < DALTONIC_BOT_2016-10-22.sql
 
 ### Temporal folder creation
 
-Inside telegram_daltonic_bot.py file there is a variable called SAVE_PATH, you can set your own path to save the images created. Inside this path create two folders **incoming_images** and **outcoming_images**.
+Inside **telegram_daltonic_bot.py** file there is a variable called SAVE_PATH, you can set your own path to save the images created. Inside this path create two folders **incoming_images** and **outcoming_images**.
 
 ```
 mkdir SAVE_PATH/incoming_images
@@ -67,7 +67,7 @@ mkdir SAVE_PATH/outcoming_images
 
 ## MySQL credentials
 
-On mysql_manager.py file set your MySQL credentials:
+On **mysql_manager.py** file set your MySQL credentials:
 
 ```
 db_host = "localhost"
