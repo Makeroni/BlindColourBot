@@ -82,6 +82,21 @@ class SQLManager:
            return True
         return False
 
+    def check_user_exists_status_bot(self, user_id):
+        self.new_connection()
+        exist = False
+        try:
+            query = "SELECT user_id FROM active_bot WHERE user_id = '" + user_id + "' limit 1"
+            cursor.execute(query)
+            data = cursor.fetchall()
+            rows = len(data)
+            if (rows > 0):
+                exist = True
+        except:
+            print "Error: the database connection closing on fetch..."
+        self.close_connection()
+        return exist
+
     def update_status_bot(self, user_id, status):
         self.new_connection()
         operation = False
