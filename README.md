@@ -69,4 +69,4 @@ This bot also uses Daltonize project. Big thank you for this wonderful tool:hear
 
 [https://github.com/joergdietrich/daltonize](https://github.com/joergdietrich/daltonize)
 
-Add this bot to your convertion at [https://telegram.me/BlindColourBot](@BlindColourBot).
+Add this bot to your conversation at [@BlindColourBot](https://telegram.me/BlindColourBot).
