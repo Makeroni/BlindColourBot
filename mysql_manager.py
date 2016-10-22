@@ -32,14 +32,14 @@ class SQLManager:
         self.new_connection()
         try:
             query = "INSERT INTO users_bot (date, time, daltonic_type, user_id, name, surname) " 
-            query += "values(CURRENT_DATE(), NOW(), '" + daltonic_type + "', '" + user_id + "', '" + name  +"', '" + surname + "') "
+            query += "values(CURRENT_DATE(), NOW(), '" + daltonic_type + "', '" + user_id + "', '" + name  + "', '" + surname + "') "
             query += "ON DUPLICATE KEY UPDATE date = CURRENT_DATE(), time = NOW(), daltonic_type = '" + daltonic_type + "'" 
             cursor.execute(query)
             db.commit()
 #            print "Data committed" 
             status =  True
         except:
-            print "Error: the database is being rolled back"
+            print "Error: the database is being rolled back - update_status_bot"
             db.rollback()
         self.close_connection()
         return status
@@ -63,6 +63,44 @@ class SQLManager:
         self.close_connection()
         return result
 
+    def check_active_bot(self, user_id):
+        self.new_connection()
+        enabled = 0
+        try:
+            query = "SELECT enabled FROM active_bot WHERE user_id = '" + user_id + "' limit 1"
+            cursor.execute(query)
+            data = cursor.fetchall()
+            rows = len(data)
+            if (rows > 0):
+               for row in data:
+                  enabled = row[0]
+                  break
+        except:
+            print "Error: the database connection closing on fetch..."
+        self.close_connection()
+        if (enabled == 1):
+           return True
+        return False
+
+    def update_status_bot(self, user_id, status):
+        self.new_connection()
+        operation = False
+        try:
+            enabled = 0
+            if status == True:
+               enabled = 1
+            query = "INSERT INTO active_bot (date, time, user_id, enabled) "
+            query += "values(CURRENT_DATE(), NOW(), '" + user_id + "', " + str(enabled) + ") "
+            query += "ON DUPLICATE KEY UPDATE date = CURRENT_DATE(), time = NOW(), enabled = " + str(enabled)
+            cursor.execute(query)
+            db.commit()
+            operation = True
+        except:
+            print "Error: the database is being rolled back - update"
+            db.rollback()
+        self.close_connection()
+        return operation
+
     def delete_user(self, user_id):
         self.new_connection()
         status = False
@@ -75,6 +113,7 @@ class SQLManager:
             print "Error: the database connection closing on fetch..."
             status = False
         self.close_connection()
+        self.update_status_bot(user_id, False)
         return status
 
     def close_connection(self):

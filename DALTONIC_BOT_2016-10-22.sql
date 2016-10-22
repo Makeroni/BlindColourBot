@@ -7,7 +7,7 @@
 #
 # Host: raspilocal2 (MySQL 5.5.52-0+deb7u1)
 # Database: DALTONIC_BOT
-# Generation Time: 2016-10-21 19:08:22 +0000
+# Generation Time: 2016-10-22 11:05:52 +0000
 # ************************************************************
 
 
@@ -20,10 +20,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table users_bot
+# Dump of table active_bot
 # ------------------------------------------------------------
 
-# CREATE DATABASE IF NOT EXISTS DALTONIC_BOT;
+# CREATE DATABASE IF NOT EXISTS DALTONIC_BOT
+
+DROP TABLE IF EXISTS `active_bot`;
+
+CREATE TABLE `active_bot` (
+  `user_id` varchar(150) NOT NULL DEFAULT '',
+  `enabled` tinyint(1) NOT NULL DEFAULT '0',
+  `date` date DEFAULT NULL,
+  `time` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `active_bot` WRITE;
+/*!40000 ALTER TABLE `active_bot` DISABLE KEYS */;
+
+INSERT INTO `active_bot` (`user_id`, `enabled`, `date`, `time`)
+VALUES
+	('222',0,'2016-10-22','2016-10-22 13:04:21'),
+	('5600371',1,'2016-10-22','2016-10-22 13:01:12');
+
+/*!40000 ALTER TABLE `active_bot` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table users_bot
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `users_bot`;
 
@@ -42,7 +67,8 @@ LOCK TABLES `users_bot` WRITE;
 
 INSERT INTO `users_bot` (`user_id`, `daltonic_type`, `date`, `time`, `name`, `surname`)
 VALUES
-	('6619419','deuteranopia','2016-10-21','2016-10-21 21:03:13','sergio','');
+	('222','protanopia','2016-10-22','2016-10-22 13:04:21','John','Doe'),
+	('5600371','protanopia','2016-10-21','2016-10-21 21:33:54','fergus','reig');
 
 /*!40000 ALTER TABLE `users_bot` ENABLE KEYS */;
 UNLOCK TABLES;
