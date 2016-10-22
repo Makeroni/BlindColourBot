@@ -1,7 +1,5 @@
 # **BlindColourBot**
 
-/play trololo
-
 Telegram bot that converts images for blind colour people. Tested on Raspberry Pi 2 Model B.:+1:
 
 ## Installation process
@@ -48,3 +46,4 @@ This bot also uses Daltonize project. Big thank you for this wonderful tool:hear
 
 [https://github.com/joergdietrich/daltonize](https://github.com/joergdietrich/daltonize)
 
+Add this bot to your convertion at [https://telegram.me/BlindColourBot](@BlindColourBot).
