@@ -1,6 +1,6 @@
 # **BlindColourBot**
 
-![BlidColourBot](./demo.gif)
+![BlidColourBot](https://github.com/Makeroni/BlindColourBot/blob/master/demo.gif)
 
 Telegram bot that converts images for blind colour people. Tested on Raspberry Pi 2 Model B.:+1:
 
