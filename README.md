@@ -1,5 +1,7 @@
 # **BlindColourBot**
+
 /play trololo
+
 Telegram bot that converts images for blind colour people. Tested on Raspberry Pi 2 Model B.:+1:
 
 ## Installation process
@@ -42,7 +44,7 @@ pip install numpy
 sudo apt-get install mysql-server python-mysqldb
 ```
 
-This bot also uses Daltonize project. Big thank you for this wonderful tool:
+This bot also uses Daltonize project. Big thank you for this wonderful tool:heartbeat::
 
 [https://github.com/joergdietrich/daltonize](https://github.com/joergdietrich/daltonize)
 
