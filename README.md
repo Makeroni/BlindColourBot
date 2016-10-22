@@ -44,7 +44,7 @@ sudo apt-get install mysql-server python-mysqldb
 
 ### Import MySQL Database:
 
-1. Create MySQL database in your MySQL databse engine:
+1. Create MySQL database in your MySQL database engine:
 
 ```
 CREATE DATABASE IF NOT EXISTS DALTONIC_BOT;
@@ -54,6 +54,15 @@ CREATE DATABASE IF NOT EXISTS DALTONIC_BOT;
 
 ```
 mysql -u <username> -p <databasename> < DALTONIC_BOT_2016-10-22.sql
+```
+
+### Temporal folder creation
+
+Inside telegram_daltonic_bot.py file there is a variable called SAVE_PATH, you can set your own path to save the images created. Inside this path create two folders **incoming_images** and **outcoming_images**.
+
+```
+mkdir SAVE_PATH/incoming_images
+mkdir SAVE_PATH/outcoming_images
 ```
 
 This bot also uses Daltonize project. Big thank you for this wonderful tool:heartbeat::
