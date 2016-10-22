@@ -44,13 +44,13 @@ sudo apt-get install mysql-server python-mysqldb
 
 ### Import MySQL Database:
 
-1. Create MySQL database in your MySQL database engine:
+* Create MySQL database in your MySQL database engine:
 
 ```
 CREATE DATABASE IF NOT EXISTS DALTONIC_BOT;
 ```
 
-2. Import the MySQL dump file:
+* Import the MySQL dump file:
 
 ```
 mysql -u <username> -p DALTONIC_BOT < DALTONIC_BOT_2016-10-22.sql
