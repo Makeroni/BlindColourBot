@@ -65,6 +65,17 @@ mkdir SAVE_PATH/incoming_images
 mkdir SAVE_PATH/outcoming_images
 ```
 
+## MySQL credentials
+
+On mysql_manager.py file set your MySQL credentials:
+
+```
+db_host = "localhost"
+db_name = "DALTONIC_BOT"
+db_user = "root"
+db_password = ""
+```
+
 ## Usage
 
 List of command for [@BlindColourBot](https://telegram.me/BlindColourBot):
