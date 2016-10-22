@@ -65,6 +65,16 @@ mkdir SAVE_PATH/incoming_images
 mkdir SAVE_PATH/outcoming_images
 ```
 
+## Usage
+
+List of command for [@BlindColourBot](https://telegram.me/BlindColourBot):
+
+/start : Starts BlindColourBot
+/help : Help for BlindColourBot
+/stop : Stop BlindColourBot
+/setmydaltonism : Set your daltonism configuratio
+/resetmydaltonism : Reset your configuration
+
 This bot also uses Daltonize project. Big thank you for this wonderful tool:heartbeat::
 
 [https://github.com/joergdietrich/daltonize](https://github.com/joergdietrich/daltonize)
