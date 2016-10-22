@@ -95,6 +95,9 @@ def save_file(file):
          shutil.copyfileobj(file.raw, new_file)
     return final_image_path
 
+def remove_file(path_file):
+    os.remove(path_file)
+
 def adjust_image(image_in, image_out, blindness_type):
     blind = "d"
     if blindness_type == "protanopia":
@@ -283,6 +286,8 @@ def process_image_item(message, daltonic_option):
         send_message(cid, "Sending new image....")
         send_photo(cid, output_image_path)
         send_message(cid, "New image sended!")
+        remove_file(input_image_path)
+        remove_file(output_image_path)
 
 def process_daltonize_now(msg):
     message = user_dict[msg.chat.id]
