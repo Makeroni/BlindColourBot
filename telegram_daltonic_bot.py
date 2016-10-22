@@ -48,8 +48,6 @@ user_dict = {}
 def check_bot_status(cid):
     status = mmanager.check_active_bot(str(cid))
     print ("Bot enabled" if status == True else "Bot disabled")
-    if status == False:
-       send_message(cid, "Current status for DaltonicBot is stopped.\nEnable this bot with /start command")
     return status
 
 def send_message(cid, text):
@@ -155,6 +153,7 @@ def command_set_my_daltonism(message):
 def command_set_my_daltonism(message):
     cid = message.chat.id
     if check_bot_status(cid) == False:
+       send_message(cid, "Current status for DaltonicBot is stopped.\nEnable this bot with /start command")
        return
     markup = types.ReplyKeyboardMarkup()
     markup.resize_keyboard = True
@@ -193,6 +192,7 @@ def save_daltonism_option(message):
 def command_reset_my_daltonism(message):
     cid = message.chat.id
     if check_bot_status(cid) == False:
+       send_message(cid, "Current status for DaltonicBot is stopped.\nEnable this bot with /start command")
        return 
     markup = types.ReplyKeyboardMarkup()
     markup.resize_keyboard = True
