@@ -42,6 +42,20 @@ pip install numpy
 sudo apt-get install mysql-server python-mysqldb
 ```
 
+### Import MySQL Database:
+
+1. Create MySQL database in your MySQL databse engine:
+
+```
+CREATE DATABASE IF NOT EXISTS DALTONIC_BOT;
+```
+
+2. Import the MySQL dump file:
+
+```
+mysql -u <username> -p <databasename> < DALTONIC_BOT_2016-10-22.sql
+```
+
 This bot also uses Daltonize project. Big thank you for this wonderful tool:heartbeat::
 
 [https://github.com/joergdietrich/daltonize](https://github.com/joergdietrich/daltonize)
