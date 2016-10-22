@@ -53,7 +53,7 @@ CREATE DATABASE IF NOT EXISTS DALTONIC_BOT;
 2. Import the MySQL dump file:
 
 ```
-mysql -u <username> -p <databasename> < DALTONIC_BOT_2016-10-22.sql
+mysql -u <username> -p DALTONIC_BOT < DALTONIC_BOT_2016-10-22.sql
 ```
 
 ### Temporal folder creation
