@@ -4,7 +4,7 @@ Telegram bot that converts images for blind colour people. Tested on Raspberry P
 
 ## Installation process
 
-Choose your favorite GNU/Linuc distribution and install these programs:
+Choose your favorite GNU/Linux distribution and install these programs:
 
 ### Install Python utils:
 
