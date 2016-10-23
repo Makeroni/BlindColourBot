@@ -4,7 +4,7 @@ from mysql_manager import SQLManager
 
 def main():
     mmanager = SQLManager()
-    mmanager.insert_daltonic_data('protanopia', '222', "John", "Doe")
+#    mmanager.insert_daltonic_data('protanopia', '222', "John", "Doe")
     result = mmanager.load_daltonic_data('222')
     print result
 #    result = mmanager.delete_user('222')

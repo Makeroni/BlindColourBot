@@ -3,7 +3,7 @@
 import MySQLdb
 
 class SQLManager:
-    
+ 
     global db_host 
     global db_name
     global db_user
@@ -15,13 +15,14 @@ class SQLManager:
     db_password = ""
 
     def __init__(self):
-        print "MySQL object created"
+#        print "MySQL object created"
+        pass
 
     def new_connection(self):
         try:
             global db
-            db = MySQLdb.connect(db_host, db_user, db_password, db_name)
             global cursor
+            db = MySQLdb.connect(db_host, db_user, db_password, db_name)
             cursor = db.cursor()
         except:
             print "Error: closing databe connection..."
