@@ -38,9 +38,6 @@ CREATE TABLE `active_bot` (
 LOCK TABLES `active_bot` WRITE;
 /*!40000 ALTER TABLE `active_bot` DISABLE KEYS */;
 
-INSERT INTO `active_bot` (`chat_id`, `enabled`, `date`, `time`)
-VALUES
-	('6619419',0,'2016-10-22','2016-10-22 14:10:37');
 
 /*!40000 ALTER TABLE `active_bot` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -64,9 +61,6 @@ CREATE TABLE `users_bot` (
 LOCK TABLES `users_bot` WRITE;
 /*!40000 ALTER TABLE `users_bot` DISABLE KEYS */;
 
-INSERT INTO `users_bot` (`user_id`, `daltonic_type`, `date`, `time`, `name`, `surname`)
-VALUES
-	('5600371','protanopia','2016-10-21','2016-10-21 21:33:54','fergus','reig');
 
 /*!40000 ALTER TABLE `users_bot` ENABLE KEYS */;
 UNLOCK TABLES;
