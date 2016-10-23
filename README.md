@@ -78,7 +78,7 @@ db_password = ""
 
 ## Usage
 
-List of command for [@BlindColourBot](https://telegram.me/BlindColourBot):
+Ccommands list for [@BlindColourBot](https://telegram.me/BlindColourBot):
 
 * /start : Starts BlindColourBot
 * /help : Help for BlindColourBot
