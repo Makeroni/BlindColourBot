@@ -6,18 +6,17 @@ Telegram bot that converts images for blind colour people. Tested on Raspberry P
 
 Choose your favorite GNU/Linux distribution and install these programs:
 
+### Install Python utils:
+
+```{r, engine='bash', count_lines}
+sudo apt-get install libtiff4-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.5-dev tk8.5-dev python-tk
+```
 ### Install Telebot:
 
 [https://github.com/eternnoir/pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)
 
 ```{r, engine='bash', count_lines}
 pip install pyTelegramBotAPI
-```
-
-### Install Python utils:
-
-```{r, engine='bash', count_lines}
-sudo apt-get install libtiff4-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.5-dev tk8.5-dev python-tk
 ```
 
 ### Install Pillow:
