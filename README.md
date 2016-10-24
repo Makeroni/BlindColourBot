@@ -13,6 +13,8 @@ sudo apt-get install libtiff4-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblc
 ```
 ### Install Telebot:
 
+Telebot is friggin AWESOME!!!:raised_hands:
+
 [https://github.com/eternnoir/pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)
 
 ```{r, engine='bash', count_lines}
