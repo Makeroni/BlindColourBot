@@ -106,3 +106,9 @@ Add this line to your crontab to track if [@BlindColourBot](https://telegram.me/
 ```{r, engine='bash', count_lines}
 */2 *   * * *   root    /bin/sh /path/to/watchdog_bots.sh /path/to/telegram_daltonic_bot.py > /dev/null
 ```
+
+Make sure to set execution permissions to the script:
+
+```{r, engine='bash', count_lines}
+chmod +x /path/to/watchdog_bots.sh
+```
