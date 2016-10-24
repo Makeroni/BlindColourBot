@@ -98,3 +98,11 @@ This bot also uses Daltonize project. Big thank you for this wonderful tool:hear
 [https://github.com/joergdietrich/daltonize](https://github.com/joergdietrich/daltonize)
 
 Add this bot to your conversation at [@BlindColourBot](https://telegram.me/BlindColourBot).
+
+## Bonus
+
+Add this line to your crontab to track if [@BlindColourBot](https://telegram.me/BlindColourBot) is running. The script check every two minutes if the bot is running:
+
+```{r, engine='bash', count_lines}
+*/2 *   * * *   root    /bin/sh /path/to/watchdog_bots.sh /path/to/telegram_daltonic_bot.py > /dev/null
+```
