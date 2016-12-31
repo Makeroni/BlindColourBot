@@ -30,7 +30,7 @@ requests.packages.urllib3.disable_warnings()
 
 BASE_PATH = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-TOKEN = "285289285:AAGyLiGG3NNBVWp28xPwtv0EhOT3WMKD95Q"
+TOKEN = open(os.path.realpath('..') + "/tokens_telegram_bots/token_daltonic_bot.txt", 'rb').read().rstrip('\n')
 
 SAVE_PATH = "/media/HDD2/telegram_bot/images"
 

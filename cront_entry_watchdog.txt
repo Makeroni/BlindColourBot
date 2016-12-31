@@ -1,0 +1,5 @@
+# Check every 2 minutes if bot is active
+
+*/2 *   * * *   root    cd /root/telegram_bots/daltonic && /bin/sh /root/watchdog_bots.sh /root/telegram_bots/daltonic/telegram_daltonic_bot.py > /dev/null
+
+

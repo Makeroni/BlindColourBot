@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Enter yout git comment followed [ENTER]: "
+echo "Enter yout git comment followed [ENTER]: " 
 
 read COMMENT
 
